@@ -34,12 +34,38 @@ namespace AumentaTestBack.Controllers
         [HttpGet]
         public IActionResult GetLastPurchase()
         {
-            Purchase? purchase = _repository.Purchase.GetLastPurchase();
+            Purchase? purchase = _repository.Purchase.GetLastPurchaseWithPurchaseProducts();
+            
             if (purchase == null)
             {
                 return BadRequest("A purchase object was not found in the DB");
             }
-            return Ok(purchase);
+
+            PurchaseDTO purchaseDTO = new PurchaseDTO()
+            {
+                Id = purchase.Id,
+                Finished = purchase.Finished,
+            };
+            List<PurchaseProductDTO> products = new List<PurchaseProductDTO>();
+
+            foreach (var item in purchase.PurchaseProducts)
+            {
+                ProductDTO product = item.Product.IsTaxesFree ? new TaxesFreeProductDTO() : new BasicProductDTO();
+
+                product.Name = item.Product.Name;
+                product.Price = item.Product.Price;
+                product.FinalPrice = product.Price + product.GetTaxes();
+
+                products.Add(
+                    new PurchaseProductDTO()
+                    {
+                        Amount = item.Amount,
+                        Product = product
+                    }
+                );
+            }
+            purchaseDTO.PurchaseProducts = products;
+            return Ok(purchaseDTO);
         }
 
         //Add Product To Cart
@@ -62,14 +88,26 @@ namespace AumentaTestBack.Controllers
                 purchase = lastPurchase;
             }
 
-            PurchaseProduct newPurchaseProduct = new PurchaseProduct()
+            PurchaseProduct? previousProduct = _repository.PurchaseProduct.GetPurchaseProductByIds(purchase.Id, purchaseProductForCreation.ProductId);
+            if (previousProduct == null)
             {
-                PurchaseId = purchase.Id,
-                ProductId = purchaseProductForCreation.ProductId,
-                Amount = purchaseProductForCreation.Amount,
-            };
-            _repository.PurchaseProduct.CreatePurchaseProduct(newPurchaseProduct);
-            _repository.Save();
+                PurchaseProduct newPurchaseProduct = new PurchaseProduct()
+                {
+                    PurchaseId = purchase.Id,
+                    ProductId = purchaseProductForCreation.ProductId,
+                    Amount = purchaseProductForCreation.Amount,
+                };
+                _repository.PurchaseProduct.CreatePurchaseProduct(newPurchaseProduct);
+                _repository.Save();
+            }
+            else
+            {
+                previousProduct.Amount++;
+                _repository.PurchaseProduct.Update(previousProduct);
+                _repository.Save();
+            }
+            
+            
 
             return Ok();
         }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AumentaTestBack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68fb77652c177330495d9faa4008ef17c66e63ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("AumentaTestBack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AumentaTestBack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

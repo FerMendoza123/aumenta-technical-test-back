@@ -14,13 +14,13 @@ namespace AumentaTestBack.Repositories
 
         public Purchase? GetLastPurchase()
         {
-            Purchase? lastPurchase =  AppDbContext.Purchases.FirstOrDefault();
+            Purchase? lastPurchase =  AppDbContext.Purchases.OrderByDescending(p => p.Id).FirstOrDefault();
             return lastPurchase;
 
         }
         public Purchase? GetLastPurchaseWithPurchaseProducts()
         {
-            Purchase? lastPurchase = AppDbContext.Purchases.Include(p => p.PurchaseProducts).ThenInclude(p=>p.Product).FirstOrDefault();
+            Purchase? lastPurchase = AppDbContext.Purchases.Include(p => p.PurchaseProducts).ThenInclude(p=>p.Product).OrderByDescending(p=>p.Id).FirstOrDefault();
             return lastPurchase;
         }
 

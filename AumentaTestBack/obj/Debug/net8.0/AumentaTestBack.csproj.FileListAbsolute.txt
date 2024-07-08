@@ -102,3 +102,4 @@ C:\Users\caifa\source\repos\AumentaTestBack\AumentaTestBack\obj\Debug\net8.0\ref
 C:\Users\caifa\source\repos\AumentaTestBack\AumentaTestBack\obj\Debug\net8.0\AumentaTestBack.pdb
 C:\Users\caifa\source\repos\AumentaTestBack\AumentaTestBack\obj\Debug\net8.0\AumentaTestBack.genruntimeconfig.cache
 C:\Users\caifa\source\repos\AumentaTestBack\AumentaTestBack\obj\Debug\net8.0\ref\AumentaTestBack.dll
+C:\Users\caifa\source\repos\AumentaTestBack\AumentaTestBack\obj\Debug\net8.0\AumentaTestBack.sourcelink.json

@@ -15,5 +15,10 @@ namespace AumentaTestBack.Repositories
         {
             Create(purchaseProduct);
         }
+
+        public PurchaseProduct? GetPurchaseProductByIds(int purchaseId, int productId)
+        {
+            return base.AppDbContext.PurchasesProducts.Where(p => p.PurchaseId == purchaseId && p.ProductId == productId).FirstOrDefault();
+        }
     }
 }
