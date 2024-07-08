@@ -1,0 +1,6 @@
+@AumentaTestBack_HostAddress = http://localhost:5141
+
+GET {{AumentaTestBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
